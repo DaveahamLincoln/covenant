@@ -1,0 +1,25 @@
+<%= simple_form_for @character do |f| %>
+    <% if @character.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@character.errors.count, "error") %> prohibited this character from being saved:</h2>
+  
+        <ul>
+        <% @character.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <%= f.input :name %>
+  <%= f.input :role,:collection => Role.all,:label_method => :name,:value_method => :id,:label => "Role" ,:include_blank => true %>
+  <%= f.input :cclass,:collection => Cclass.all,:label_method => :name,:value_method => :id,:label => "Class" ,:include_blank => true %>
+  <%= f.input :prefix,:collection => Prefix.all,:label_method => :name,:value_method => :id,:label => "Prefix" ,:include_blank => true %>
+  <%= f.input :affix,:collection => Affix.all,:label_method => :name,:value_method => :id,:label => "Affix" ,:include_blank => true %>
+  <%= f.input :sigil_1,:collection => Sigil.all,:label_method => :name,:value_method => :id,:label => "Sigil 1" ,:include_blank => true %>
+  <%= f.input :sigil_2,:collection => Sigil.all,:label_method => :name,:value_method => :id,:label => "Sigil 2" ,:include_blank => true %>
+  <%= f.input :sigil_3,:collection => Sigil.all,:label_method => :name,:value_method => :id,:label => "Sigil 3" ,:include_blank => true %>
+  <%= f.input :sigil_4,:collection => Sigil.all,:label_method => :name,:value_method => :id,:label => "Sigil 4" ,:include_blank => true %>
+  <%= f.input :toughness %>
+  <%= f.input :ac %>
+  <%= f.button :submit %>
+<% end %>

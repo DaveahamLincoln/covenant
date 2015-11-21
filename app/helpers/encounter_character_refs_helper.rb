@@ -1,0 +1,2 @@
+module EncounterCharacterRefsHelper
+end

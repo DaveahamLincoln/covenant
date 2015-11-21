@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Encounter:</strong>
+  <%= Encounter.find(@pull_role.encounter_id).name %>
+</p>
+
+
+<p>
+  <strong>Name:</strong>
+  <%= @pull_role.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @pull_role.description %>
+</p>
+
+<%= link_to 'Edit', edit_pull_role_path(@pull_role) %> |
+<%= link_to 'Back', pull_roles_path %>

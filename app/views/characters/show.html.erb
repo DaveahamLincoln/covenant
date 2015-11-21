@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @character.name %>
+</p>
+
+<p>
+  <strong>Role:</strong>
+  <%= Role.find(@character.role).name %>
+</p>
+
+<p>
+  <strong>Class:</strong>
+  <%= Cclass.find(@character.cclass).name %>
+</p>
+
+<p>
+  <strong>Prefix:</strong>
+  <%= Prefix.find(@character.prefix).name %>
+</p>
+
+<p>
+  <strong>Affix:</strong>
+  <%= Affix.find(@character.affix).name %>
+</p>
+
+<p>
+  <strong>Sigil 1:</strong>
+  <%= Sigil.find(@character.sigil_1).name %>
+</p>
+
+<p>
+  <strong>Sigil 2:</strong>
+  <%= Sigil.find(@character.sigil_2).name %>
+</p>
+
+<p>
+  <strong>Sigil 3:</strong>
+  <%= Sigil.find(@character.sigil_3).name %>
+</p>
+
+<p>
+  <strong>Sigil 4:</strong>
+  <%= Sigil.find(@character.sigil_4).name %>
+</p>
+
+<p>
+  <strong>Toughness:</strong>
+  <%= @character.toughness %>
+</p>
+
+<p>
+  <strong>Armor Class:</strong>
+  <%= @character.ac %>
+</p>
+
+<%= link_to 'Edit', edit_character_path(@character) %> |
+<%= link_to 'Back', characters_path %>

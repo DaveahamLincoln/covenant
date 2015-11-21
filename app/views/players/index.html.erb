@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Players</h1>
+
+<table border= "1">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Rank</th>
+      <th>Rxp</th>
+      <th>Squad</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @players.each do |player| %>
+      <tr>
+        <td><%= player.name %></td>
+        <td><%= Rank.find(player.rank).name %></td>
+        <td><%= player.rxp %></td>
+        <td><%= Squad.find(player.squad).name %></td>
+        <td><%= link_to 'Show', player %></td>
+        <td><%= link_to 'Edit', edit_player_path(player) %></td>
+        <td><%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Player', new_player_path %>

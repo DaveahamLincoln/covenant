@@ -1,0 +1,22 @@
+<%= simple_form_for @character_pull_role_ref do |f| %>
+    <% if @character_pull_role_ref.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@character_pull_role_ref.errors.count, "error") %> prohibited this character_pull_role_ref from being saved:</h2>
+  
+        <ul>
+        <% @character_pull_role_ref.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
+  <p>
+  <strong>Encounter:</strong>
+  <%= Encounter.find(PullRole.find(@character_pull_role_ref.pull_role_id).encounter_id).name %>
+  </p>
+  
+  <%= f.input :character_id,:collection => Character.all,:label_method => :name,:value_method => :id,:label => "Character Name" ,:include_blank => true %>
+  <%= f.input :pull_role_id,:collection => PullRole.all,:label_method => :name,:value_method => :id,:label => "Pull Role" ,:include_blank => true %>
+  <%= f.button :submit %>
+<% end %>

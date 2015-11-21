@@ -1,0 +1,18 @@
+<%= simple_form_for @player do |f| %>
+    <% if @player.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@player.errors.count, "error") %> prohibited this player from being saved:</h2>
+  
+        <ul>
+        <% @player.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <%= f.input :name %>
+  <%= f.input :rank,:collection => Rank.all,:label_method => :name,:value_method => :id,:label => "Rank" ,:include_blank => true %>
+  <%= f.input :rxp %>
+  <%= f.input :squad,:collection => Squad.all,:label_method => :name,:value_method => :id,:label => "Squad" ,:include_blank => true %>
+  <%= f.button :submit %>
+<% end %>

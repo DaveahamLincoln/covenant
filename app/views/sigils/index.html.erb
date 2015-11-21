@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Sigils</h1>
+
+<table border= "1">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sigils.each do |sigil| %>
+      <tr>
+        <td><%= sigil.name %></td>
+        <td><%= sigil.description %></td>
+        <td><%= link_to 'Show', sigil %></td>
+        <td><%= link_to 'Edit', edit_sigil_path(sigil) %></td>
+        <td><%= link_to 'Destroy', sigil, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sigil', new_sigil_path %>

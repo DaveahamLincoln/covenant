@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @pull.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @pull.description %>
+</p>
+
+<%= link_to 'Edit', edit_pull_path(@pull) %> |
+<%= link_to 'Back', pulls_path %>

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Character Pull Role Refs</h1>
+
+<table border= "1">
+  <thead>
+    <tr>
+      <th>Pull role</th>
+      <th>Character</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @character_pull_role_refs.each do |character_pull_role_ref| %>
+      <tr>
+        <td><b><%= Encounter.find(PullRole.find(character_pull_role_ref.pull_role_id).encounter_id).name %></b></td>
+        <td><%= PullRole.find(character_pull_role_ref.pull_role_id).name %></td>
+        <td><%= Character.find(character_pull_role_ref.character_id).name %></td>
+        <td><%= link_to 'Show', character_pull_role_ref %></td>
+        <td><%= link_to 'Edit', edit_character_pull_role_ref_path(character_pull_role_ref) %></td>
+        <td><%= link_to 'Destroy', character_pull_role_ref, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Character pull role ref', new_character_pull_role_ref_path %>

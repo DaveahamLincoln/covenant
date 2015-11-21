@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Classes</h1>
+
+<table border= "1">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cclasses.each do |cclass| %>
+      <tr>
+        <td><%= cclass.name %></td>
+        <td><%= cclass.description %></td>
+        <td><%= link_to 'Show', cclass %></td>
+        <td><%= link_to 'Edit', edit_cclass_path(cclass) %></td>
+        <td><%= link_to 'Destroy', cclass, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Cclass', new_cclass_path %>

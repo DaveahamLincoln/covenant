@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @squad.name %>
+  
+  
+<h1>Listing Characters</h1>
+
+    <table border = "1">
+      <thead>
+        <tr>
+          <td>Name</td>
+          <td>Role</td>
+          <td>Class</td>
+          <td>Prefix</td>
+          <td>Affix</td>
+          <td>Sigil 1</td>
+          <td>Sigil 2</td>
+          <td>Sigil 3</td>
+          <td>Sigil 4</td>
+          <td>Toughness</td>
+          <td>Armor Class</td>
+          <th colspan="3"></th>
+        </tr>
+    </thead>
+  
+    <tbody>
+        <% @characters.each do |c| %>
+        <tr>
+          <td><%= c.name %></td>
+           <td><%=Role.find(c.role).name %></td>
+           <td><%=Cclass.find(c.cclass).name %></td>
+           <td><%=Prefix.find(c.prefix).name %></td>
+           <td><%=Affix.find(c.affix).name %></td>
+           <td><%=Sigil.find(c.sigil_1).name %></td>
+           <td><%=Sigil.find(c.sigil_2).name %></td>
+           <td><%=Sigil.find(c.sigil_3).name %></td>
+           <td><%=Sigil.find(c.sigil_4).name %></td>
+           <td><%=c.toughness %></td>
+           <td><%=c.ac %></td>
+
+          <td><%= link_to 'Show', c %></td>
+          <td><%= link_to 'Edit', edit_character_path(c) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+      
+</p>
+
+<%= link_to 'Edit', edit_squad_path(@squad) %> |
+<%= link_to 'Back', squad_path %> 

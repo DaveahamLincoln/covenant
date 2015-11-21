@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @prefix.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @prefix.description %>
+</p>
+
+<%= link_to 'Edit', edit_prefix_path(@prefix) %> |
+<%= link_to 'Back', prefixes_path %>

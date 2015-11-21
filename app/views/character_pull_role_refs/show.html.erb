@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Encounter:</strong>
+  <%= Encounter.find(PullRole.find(@character_pull_role_ref.pull_role_id).encounter_id).name %>
+</p>
+
+
+<p>
+  <strong>Pull role:</strong>
+  <%= PullRole.find(@character_pull_role_ref.pull_role_id).name %>
+</p>
+
+<p>
+  <strong>Character:</strong>
+  <%= Character.find(@character_pull_role_ref.character_id).name %>
+</p>
+
+<%= link_to 'Edit', edit_character_pull_role_ref_path(@character_pull_role_ref) %> |
+<%= link_to 'Back', character_pull_role_refs_path %>

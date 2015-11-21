@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Encounter:</strong>
+  <%= @encounter_character_ref.encounter_id %>
+</p>
+
+<p>
+  <strong>Character:</strong>
+  <%= @encounter_character_ref.character_id %>
+</p>
+
+<%= link_to 'Edit', edit_encounter_character_ref_path(@encounter_character_ref) %> |
+<%= link_to 'Back', encounter_character_refs_path %>

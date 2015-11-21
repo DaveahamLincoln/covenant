@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Affixes</h1>
+
+<table border= "1">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @affixes.each do |affix| %>
+      <tr>
+        <td><%= affix.name %></td>
+        <td><%= affix.description %></td>
+        <td><%= link_to 'Show', affix %></td>
+        <td><%= link_to 'Edit', edit_affix_path(affix) %></td>
+        <td><%= link_to 'Destroy', affix, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Affix', new_affix_path %>

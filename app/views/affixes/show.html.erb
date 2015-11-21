@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @affix.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @affix.description %>
+</p>
+
+<%= link_to 'Edit', edit_affix_path(@affix) %> |
+<%= link_to 'Back', affixes_path %>

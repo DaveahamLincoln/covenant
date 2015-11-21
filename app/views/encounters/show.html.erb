@@ -1,0 +1,186 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @encounter.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @encounter.description %>
+</p>
+
+<br/>
+
+<hr size: "10px">
+
+<h1>Characters</h1>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Player</th>
+      <th>Character Name</th>
+      <th>Class</th>
+      <th>Role</th>
+      <th>Toughness</th>
+      <th>Armor Class</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% srefs = @encounter_character_refs.sort { |a,b| Rank.find(Player.find(Character.find(a.character_id).player_id).rank) <=> Rank.find(Player.find(Character.find(b.character_id).player_id).rank) } %> 
+      <% srefs.each do |ecr| %>
+      <tr>
+        <td><%= Rank.find(Player.find(Character.find(ecr.character_id).player_id).rank).name %></td>
+        <td><%= Player.find(Character.find(ecr.character_id).player_id).name %></td>
+        <td><%= Character.find(ecr.character_id).name %></td>
+        <td><%= Cclass.find(Character.find(ecr.character_id).cclass).name %></td>
+        <td><%= Role.find(Character.find(ecr.character_id).role).name %></td>
+        <td><%= Character.find(ecr.character_id).toughness %></td>
+        <td><%= Character.find(ecr.character_id).ac %></td>
+        <td><%= link_to 'Show', character_path(ecr.character_id) %></td>
+        <td><%= link_to 'Edit', edit_character_path(ecr.character_id) %></td>
+        <td><%= link_to 'Destroy', character_path(ecr.character_id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br/>
+
+<hr size: "10px">
+
+<h1>Res Priority</h1>
+
+<table border="1">
+<thead>
+    <tr>
+      <th>Character Name</th>
+      <th>Class</th>
+      <th>Role</th>
+      <th>Toughness</th>
+      <th>Armor Class</th>
+    </tr>
+</thead>
+
+<tbody>
+    <% srefs = @encounter_character_refs.sort { |a,b| Character.find(b.character_id).toughness <=> Character.find(a.character_id).toughness } %> 
+      <% srefs.each do |ecr| %>
+      <tr>
+        <td><%= Character.find(ecr.character_id).name%></td>
+        <td><%= Cclass.find(Character.find(ecr.character_id).cclass).name%></td>
+        <td><%= Role.find(Character.find(ecr.character_id).role).name%></td>
+        <td><%= Character.find(ecr.character_id).toughness%></td>
+        <td><%= Character.find(ecr.character_id).ac%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br/>
+
+<hr size: "10px">
+
+    <% @encounter_pulls.each do |pu| %>
+      <h1><%= Pull.find(pu.id).name %> Rundown</h1>
+        <table border="1">
+        <thead>
+          <tr>
+          <th>ID</th>
+          <th>Pull Name</th>
+          <th>Description</th>
+          <th>Result</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+        <tr>
+          <td><%= pu.id %></td>
+          <td><%= pu.name %></td>
+          <td><%= pu.description%></td>
+          <td><%= pu.result%></td>
+          <td><%= link_to 'Show', pull_path(pu) %></td>
+          <td><%= link_to 'Edit', edit_pull_path(pu) %></td>
+          <td><%= link_to 'Destroy', pull_path(pu), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+        <tbody>
+        </table>
+    <% end %>
+        
+        <br/>
+        <hr size: "10px">
+   
+      <% @encounter_pulls.each do |pu| %>
+        <h1><%= Pull.find(pu.id).name %> Roles</h1>
+
+      <table border="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Role Name</th>
+          <th>Role Description</th>
+        </tr>
+      </thead>
+    
+          <% PullRole.where(:pull_id => pu.id).each do |pr| %>
+          <tbody>
+          <tr>
+            <td><%= pu.id %></td>
+            <td><%= pr.name %></td>
+            <td><%= pr.description %></td>
+            <td><%= link_to 'Show', pull_role_path(pr) %></td>
+            <td><%= link_to 'Edit', edit_pull_role_path(pr) %></td>
+            <td><%= link_to 'Destroy', pull_role_path(pr), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+          <%end%>
+      </tbody>
+      </table>
+      <%end%>
+      
+      <br/>
+      <hr size: "10px">
+
+    <% @encounter_pulls.each do |pu| %>
+      <h1><%= PullRole.find(pu.id).name %> Roster</h1>
+        <table border="1">
+        <thead>
+          <tr>
+          <th>ID</th>
+          <th>Character</th>
+          <th>Class</th>
+          <th>Role</th>
+          <th>Toughness</th>
+          <th>Armor Class</th>
+          </tr>
+        </thead>    
+        
+          <% @encounter_character_pull_roles.each do |e| %>
+            <% if e.pull_role_id == pu.id %>
+              <tbody>
+              <tr>
+                <td><%= pu.id %></td>
+                <td><%= Character.find(e.character_id).name %></td>
+                <td><%= Cclass.find(Character.find(e.character_id).cclass).name %></td>
+                <td><%= Role.find(Character.find(e.character_id).role).name %></td>
+                <td><%= Character.find(e.character_id).toughness %></td>
+                <td><%= Character.find(e.character_id).ac %></td>
+                <td><%= link_to 'Show', character_pull_role_ref_path(e) %></td>
+                <td><%= link_to 'Edit', edit_pull_role_path(e) %></td>
+                <td><%= link_to 'Destroy', pull_role_path(e), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% else %>
+            <%end%>
+          <%end%>
+            </tbody>
+            <tr></tr>
+            </table>
+            </br>
+        <%end%>
+        
+<hr size: "10px">
+
+
+<%= link_to 'Edit', edit_encounter_path(@encounter) %> |
+<%= link_to 'Back', encounter_path %>

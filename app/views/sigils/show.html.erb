@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @sigil.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @sigil.description %>
+</p>
+
+<%= link_to 'Edit', edit_sigil_path(@sigil) %> |
+<%= link_to 'Back', sigils_path %>
