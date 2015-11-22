@@ -26,10 +26,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #gem 'bootstra386-rails'
 
 gem 'simple_form'
+gem 'foundation-rails'
 
-gem 'bootstrap-glyphicons'
-
-gem 'adminlte-rails'
+#gem 'adminlte-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

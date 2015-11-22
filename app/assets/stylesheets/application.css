@@ -12,14 +12,13 @@
  *
  *= require_tree .
  *= require_self
- *= require bootstrap
- *= require font-awesome
- *= require ionicons
- *= require admin-lte
- *= require iCheck/all
- *= require datatables/dataTables.bootstrap
+ *= require foundation_and_overrides
  */
 
 table {
    width: 90%;
+}
+
+body {
+    background-color: grey;
 }

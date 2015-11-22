@@ -1,18 +1,17 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @encounter.name %>
-</p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @encounter.description %>
-</p>
+<div class="panel">
 
-<br/>
+  <h3>Name: <%= @encounter.name %></h3>
+
+  <h3>Description: <%= @encounter.description %></h3>
+
+</div>
 
 <hr size: "10px">
+
+<div class="panel">
 
 <h1>Characters</h1>
 
@@ -48,10 +47,12 @@
   </tbody>
 </table>
 
-<br/>
+</div>
 
 <hr size: "10px">
 
+<div class="panel">
+  
 <h1>Res Priority</h1>
 
 <table border="1">
@@ -79,106 +80,113 @@
   </tbody>
 </table>
 
-<br/>
+</div>
 
 <hr size: "10px">
 
-    <% @encounter_pulls.each do |pu| %>
-      <h1><%= Pull.find(pu.id).name %> Rundown</h1>
-        <table border="1">
-        <thead>
-          <tr>
-          <th>ID</th>
-          <th>Pull Name</th>
-          <th>Description</th>
-          <th>Result</th>
-          </tr>
-        </thead>
-        
-        <tbody>
-        <tr>
-          <td><%= pu.id %></td>
-          <td><%= pu.name %></td>
-          <td><%= pu.description%></td>
-          <td><%= pu.result%></td>
-          <td><%= link_to 'Show', pull_path(pu) %></td>
-          <td><%= link_to 'Edit', edit_pull_path(pu) %></td>
-          <td><%= link_to 'Destroy', pull_path(pu), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-        <tbody>
-        </table>
-    <% end %>
-        
-        <br/>
-        <hr size: "10px">
-   
-      <% @encounter_pulls.each do |pu| %>
-        <h1><%= Pull.find(pu.id).name %> Roles</h1>
+<div class="panel">
+  
+<h1>Encounter Pull Rundown</H1>
+  <table border="1">
+  <thead>
+    <tr>
+    <th>ID</th>
+    <th>Pull Name</th>
+    <th>Description</th>
+    <th>Result</th>
+    </tr>
+  </thead>
 
-      <table border="1">
+<% @encounter_pulls.each do |pu| %>
+  <tbody>
+  <tr>
+    <td><%= pu.id %></td>
+    <td><%= pu.name %></td>
+    <td><%= pu.description%></td>
+    <td><%= pu.result%></td>
+    <td><%= link_to 'Show', pull_path(pu) %></td>
+    <td><%= link_to 'Edit', edit_pull_path(pu) %></td>
+    <td><%= link_to 'Destroy', pull_path(pu), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+  <tbody>
+<% end %>
+</table>
+  
+</div>
+
+<hr size: "10px">
+
+<div class="panel">
+
+<% @encounter_pulls.each do |pu| %>
+  <h1><%= Pull.find(pu.id).name %> Roles</h1>
+  <table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Role Name</th>
+      <th>Role Description</th>
+    </tr>
+  </thead>
+
+  <% PullRole.where(:pull_id => pu.id).each do |pr| %>
+    <tr>
+      <td><%= pu.id %></td>
+      <td><%= pr.name %></td>
+      <td><%= pr.description %></td>
+      <td><%= link_to 'Show', pull_role_path(pr) %></td>
+      <td><%= link_to 'Edit', edit_pull_role_path(pr) %></td>
+      <td><%= link_to 'Destroy', pull_role_path(pr), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <%end%>
+  </table>
+<%end%>
+</div>
+
+<hr size: "10px">
+  
+<% @encounter_pulls.each do |pu|%>
+
+<div class="panel">
+
+  <h1><%= Pull.find(pu.id).name %> Roster</h1>
+  <% PullRole.where(:pull_id => pu.id).each do |pr| %>
+    <h2><%=pr.id %> <%= pr.name %> Group</h2>
+  
+    <hr size: "10px">
+    
+    <table border="1">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Role Name</th>
-          <th>Role Description</th>
-        </tr>
-      </thead>
-    
-          <% PullRole.where(:pull_id => pu.id).each do |pr| %>
-          <tbody>
-          <tr>
-            <td><%= pu.id %></td>
-            <td><%= pr.name %></td>
-            <td><%= pr.description %></td>
-            <td><%= link_to 'Show', pull_role_path(pr) %></td>
-            <td><%= link_to 'Edit', edit_pull_role_path(pr) %></td>
-            <td><%= link_to 'Destroy', pull_role_path(pr), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          </tr>
-          <%end%>
-      </tbody>
-      </table>
-      <%end%>
-      
-      <br/>
-      <hr size: "10px">
-
-    <% @encounter_pulls.each do |pu| %>
-      <h1><%= PullRole.find(pu.id).name %> Roster</h1>
-        <table border="1">
-        <thead>
-          <tr>
-          <th>ID</th>
+          <th>PRID</th>
           <th>Character</th>
           <th>Class</th>
           <th>Role</th>
           <th>Toughness</th>
           <th>Armor Class</th>
-          </tr>
-        </thead>    
-        
-          <% @encounter_character_pull_roles.each do |e| %>
-            <% if e.pull_role_id == pu.id %>
-              <tbody>
-              <tr>
-                <td><%= pu.id %></td>
-                <td><%= Character.find(e.character_id).name %></td>
-                <td><%= Cclass.find(Character.find(e.character_id).cclass).name %></td>
-                <td><%= Role.find(Character.find(e.character_id).role).name %></td>
-                <td><%= Character.find(e.character_id).toughness %></td>
-                <td><%= Character.find(e.character_id).ac %></td>
-                <td><%= link_to 'Show', character_pull_role_ref_path(e) %></td>
-                <td><%= link_to 'Edit', edit_pull_role_path(e) %></td>
-                <td><%= link_to 'Destroy', pull_role_path(e), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-              </tr>
-            <% else %>
-            <%end%>
-          <%end%>
-            </tbody>
-            <tr></tr>
-            </table>
-            </br>
-        <%end%>
-        
+        </tr>
+      </thead>
+      
+    <% CharacterPullRoleRef.where(:pull_role_id => pr.id).each do |cr| %>
+      <% c = Character.find(cr.character_id) %>
+        <tr>
+          <td><%= cr.pull_role_id %></td>
+          <td><%= c.name %></td>
+          <td><%= Cclass.find(c.cclass).name %></td>
+          <td><%= Role.find(c.role).name %></td>
+          <td><%= c.toughness %></td>
+          <td><%= c.ac %></td>
+          <td><%= link_to 'Show', character_pull_role_ref_path(pr) %></td>
+          <td><%= link_to 'Edit', edit_character_pull_role_ref_path(pr) %></td>
+          <td><%= link_to 'Destroy', character_pull_role_ref_path(pr), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+    <%end%>
+    </table>
+  <%end%>
+  
+</div>
+  
+<%end%>
 <hr size: "10px">
 
 

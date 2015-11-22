@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Covenant Raid Manager</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= link_to "Affixes", affixes_path %> | <%= link_to "Classes", cclasses_path %> | 
+<%= link_to "CPRRS", character_pull_role_refs_path %> | <%= link_to "Characters", characters_path %> | 
+<%= link_to "Characters", characters_path %> | <%= link_to "ECRS", encounter_character_refs_path %> |
+<%= link_to "Encounters", encounters_path %> | <%= link_to "Players", players_path %> |
+<%= link_to "Prefixes", prefixes_path %> | <%= link_to "Pull Roles", pull_roles_path %> |
+<%= link_to "Pulls", pulls_path %> | <%= link_to "Ranks", ranks_path %> |
+<%= link_to "Roles", roles_path %> | <%= link_to "Sigils", sigils_path %> |
+<%= link_to "Squads", squads_path %>
+
+
+<%= yield %>
+
+</body>
+</html>

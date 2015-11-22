@@ -1,0 +1,37 @@
+<div class="top-bar">
+  <ul class="dropdown menu" data-dropdown-menu>
+    <li class="menu-text">Covenant Raid Manager</li>
+      <li class="has-submenu">
+        <a href="#">Static Game Data (Eventually API Driven)</a>
+          <ul class="submenu menu vertical" data-submenu>
+            <%= link_to "Affixes", affixes_path %> 
+            <%= link_to "Classes", cclasses_path %> 
+            <%= link_to "Prefixes", prefixes_path %>
+            <%= link_to "Sigils", sigils_path %>
+          </ul>
+      </li>
+    
+      <li class="has-submenu">
+        <a href="#">Group Management</a>
+          <ul class="submenu menu vertical" data-submenu>
+            <%= link_to "Squads", squads_path %>
+            <%= link_to "Ranks", ranks_path %>
+            <%= link_to "Roles", roles_path %> 
+            <%= link_to "Players", players_path %>
+            <%= link_to "Characters", characters_path %>
+          </ul>
+      </li>
+    
+      <li class="has-submenu">
+        <a href="#">Raid Management</a>
+          <ul class="submenu menu vertical" data-submenu>
+            <%= link_to "Encounters", encounters_path %> 
+            <%= link_to "Encounter/Character Reference Setup", encounter_character_refs_path %>
+            <%= link_to "Pulls", pulls_path %>
+            <%= link_to "Pull Roles", pull_roles_path %>
+            <%= link_to "Character Pull Role Reference Setup", character_pull_role_refs_path %> 
+          </ul>
+      </li>
+    </li
+  </ul>
+</div>

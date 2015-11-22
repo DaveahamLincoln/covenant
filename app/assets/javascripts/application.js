@@ -12,7 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require foundation
 //= require turbolinks
-//= require bootstrap.min
-//= require admin-lte
 //= require_tree .
+
+$(function(){ $(document).foundation(); });
