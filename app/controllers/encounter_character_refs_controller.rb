@@ -1,10 +1,12 @@
 class EncounterCharacterRefsController < ApplicationController
+  before_action :authenticate_player!
   before_action :set_encounter_character_ref, only: [:show, :edit, :update, :destroy]
 
   # GET /encounter_character_refs
   # GET /encounter_character_refs.json
   def index
     @encounter_character_refs = EncounterCharacterRef.all
+    @squad_characters = Character.where(:squad_id => current_player.squad_id)
   end
 
   # GET /encounter_character_refs/1

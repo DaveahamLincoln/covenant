@@ -1,10 +1,12 @@
 class CharactersController < ApplicationController
+  before_action :authenticate_player!
   before_action :set_character, only: [:show, :edit, :update, :destroy]
 
   # GET /characters
   # GET /characters.json
   def index
-    @characters = Character.all
+    @player_characters = Character.where(:player_id => current_player.id)
+    @squad_characters = Character.where(:squad_id => current_player.squad_id)
   end
 
   # GET /characters/1

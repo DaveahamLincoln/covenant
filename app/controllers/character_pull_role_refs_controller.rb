@@ -1,4 +1,5 @@
 class CharacterPullRoleRefsController < ApplicationController
+  before_action :authenticate_player!
   before_action :set_character_pull_role_ref, only: [:show, :edit, :update, :destroy]
 
   # GET /character_pull_role_refs

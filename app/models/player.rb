@@ -4,5 +4,5 @@ class Player < ActiveRecord::Base
   
   #COMMENT OUT :VALIDATABLE BEFORE RESEEDING, THEN UNCOMMENT
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable#, :validatable
 end

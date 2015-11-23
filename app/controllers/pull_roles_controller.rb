@@ -1,4 +1,5 @@
 class PullRolesController < ApplicationController
+  before_action :authenticate_player!
   before_action :set_pull_role, only: [:show, :edit, :update, :destroy]
 
   # GET /pull_roles

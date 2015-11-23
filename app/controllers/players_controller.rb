@@ -70,11 +70,11 @@ class PlayersController < ApplicationController
     end
     
     def set_player_characters
-      @player_characters = Character.where(:player_id == current_player.id)
+      @player_characters = Character.where(:player_id => current_player.id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def player_params
-      params.require(:player).permit(:name, :rank, :rxp, :squad_id)
+      params.require(:player).permit(:name, :rank, :rxp, :squad_id, :is_leader)
     end
 end

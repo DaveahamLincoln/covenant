@@ -1,4 +1,5 @@
 class SquadsController < ApplicationController
+  before_action :authenticate_player!
   before_action :set_squad, only: [:show, :edit, :update, :destroy]
 
   # GET /squads

@@ -1,4 +1,5 @@
 class PlayerLeaderRefsController < ApplicationController
+  before_action :authenticate_player!
   before_action :set_player_leader_ref, only: [:show, :edit, :update, :destroy]
 
   # GET /player_leader_refs

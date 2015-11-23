@@ -14,11 +14,15 @@
   <tbody>
     <% @encounter_character_refs.each do |encounter_character_ref| %>
       <tr>
-        <td><%= Encounter.find(PullRole.find(encounter_character_ref.pull_role_id)).name %></td>
+        <td><%= Encounter.find(PullRole.find(encounter_character_ref.encounter_id)).name %></td>
         <td><%= Character.find(PullRole.find(encounter_character_ref.character_id)).name %></td>
-        <td><%= link_to 'Show', encounter_character_ref %></td>
-        <td><%= link_to 'Edit', edit_encounter_character_ref_path(encounter_character_ref) %></td>
-        <td><%= link_to 'Destroy', encounter_character_ref, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <%if current_player %>
+        <%if current_player.is_leader? %>
+          <td><%= link_to 'Show', encounter_character_ref %></td>
+          <td><%= link_to 'Edit', edit_encounter_character_ref_path(encounter_character_ref) %></td>
+          <td><%= link_to 'Destroy', encounter_character_ref, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
+      <%end%>
       </tr>
     <% end %>
   </tbody>

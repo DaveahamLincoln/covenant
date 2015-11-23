@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<div class="panel">
+
+<%if current_player%>
+    <h1>Logged in as <$= current_player.name%></h1>
+
+    <%if current_player.is_leader%>
+        <h3>Leader Mode is Active (Change in Player/Edit).</h3>
+    <%end>
+
+<%else%>
+    <h1>Not Logged In.  Please Log In.</h1>
+    <%= link_to('Login', new_player_session_path)  %>
+<%end%>    
+
+</div>

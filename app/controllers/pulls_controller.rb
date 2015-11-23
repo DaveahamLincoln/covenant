@@ -1,4 +1,5 @@
 class PullsController < ApplicationController
+  before_action :authenticate_player!
   before_action :set_pull, only: [:show, :edit, :update, :destroy]
 
   # GET /pulls

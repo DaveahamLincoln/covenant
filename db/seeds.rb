@@ -210,52 +210,6 @@ players_array.each do |pl|
 end
 
 #================================================
-#Preseed Leaders
-#================================================
-
-leaders_array = [
-    #[ID, "NAME"]
-    [14,"DaveahamLincoln"],   #1
-    ]
-    
-leaders_array.each do |l|
-    leader = Leader.find_or_initialize_by(id: l[0])
-    leader.email = "#{l[1].to_s}@test.com"
-    leader.password = "password"
-    leader.password_confirmation = "password"
-    leader.save!
-end
-
-#================================================
-#Preseed Player Leader Refs
-#================================================
-
-p_leader_ref_array = [
-    #[ID, PLAYER_ID, LEADER_ID]
-    [1,1,14],     #1
-    [2,2,14],     #2
-    [3,3,14],     #3
-    [4,4,14],     #4
-    [5,5,14],     #5
-    [6,6,14],     #6
-    [7,7,14],     #7
-    [8,8,14],     #8
-    [9,9,14],     #9
-    [10,10,14],   #10
-    [11,11,14],   #11
-    [12,12,14],   #12
-    [13,13,14],   #13
-    [14,14,14]    #14
-    ]
-    
-p_leader_ref_array.each do |plr|
-    p_leader_ref = PlayerLeaderRef.find_or_initialize_by(id: plr[0])
-    p_leader_ref.player_id = plr[1]
-    p_leader_ref.leader_id = plr[2]
-    p_leader_ref.save!
-end
-
-#================================================
 #Preseed Characters
 #================================================
 
@@ -400,7 +354,7 @@ encounter_character_ref_array = [
     
 encounter_character_ref_array.each do |e|
     e_character_ref = EncounterCharacterRef.find_or_initialize_by(id: e[0])
-    e_character_ref.pull_role_id = e[1]
+    e_character_ref.encounter_id = e[1]
     e_character_ref.character_id = e[2]
     e_character_ref.leader_id = e[3]
     e_character_ref.save!

@@ -3,6 +3,7 @@ class CreateRoles < ActiveRecord::Migration
     create_table :roles do |t|
       t.string :name
       t.string :description
+      t.integer :leader_id
 
       t.timestamps null: false
     end
