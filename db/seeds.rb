@@ -113,18 +113,20 @@ end
 #================================================
 
 roles_array = [
-    "Melee DPS",    #1
-    "Ranged DPS",   #2
-    "Condi DPS",    #3
-    "Healer",       #4
-    "Tank",         #5
-    "Flex",         #6
+    #[ID, NAME, LEADER_ID]
+    [1,"Melee DPS",1],    #1
+    [2,"Ranged DPS",1],   #2
+    [3,"Condi DPS",1],    #3
+    [4,"Healer",1],       #4
+    [5,"Tank",1],         #5
+    [6,"Flex",1],         #6
     ]
     
 roles_array.each do |r| 
-    role = Role.find_or_initialize_by(name: r)
-    role.name = r
-    #role.description = r[1]
+    role = Role.find_or_initialize_by(id: r[0])
+    role.name = r[1]
+    role.leader_id = r[2]
+    #role.description = r[2]
     role.save!
 end
 
@@ -133,16 +135,17 @@ end
 #================================================
 
 ranks_array = [
-    "Admiral",      #1
-    "Captain",      #2
-    "Lieutenant",   #3
-    "Midshipman"    #4
+    #[ID, NAME, LEADER_ID]
+    [1,"Admiral",1],      #1
+    [2,"Captain",1],      #2
+    [3,"Lieutenant",1],   #3
+    [4,"Midshipman",1]    #4
     ]
 
 ranks_array.each do |r|
-    rank = Rank.find_or_initialize_by(name: r)
-    rank.name = r
-    #
+    rank = Rank.find_or_initialize_by(id: r[0])
+    rank.name = r[1]
+    rank.leader_id = r[2]
     rank.save!
 end
 
@@ -151,12 +154,14 @@ end
 #================================================
 
 squads_array = [
-    "The Raiders Of The Lost Ark"   #1
+    #[ID, NAME, LEADER_ID]
+    [1,"The Raiders Of The Lost Ark",1]   #1
     ]
 
 squads_array.each do |s|
-    squad = Squad.find_or_initialize_by(name: s)
-    squad.name = s
+    squad = Squad.find_or_initialize_by(id: s[0])
+    squad.name = s[1]
+    squad.leader_id = s[2]
     #
     squad.save!
 end
@@ -166,31 +171,88 @@ end
 #================================================
 
 players_array = [
-    #["NAME", RANK, RXP, SQUAD]
-    ["Obsidian Blade",3,1,1],   #1
-    ["DeathWish",3,1,1],        #2
-    ["Upas",3,1,1],             #3
-    ["MollyElizbeth",3,1,1],    #4
-    ["MeriKasam",3,1,1],        #5
-    ["Enegek",3,1,1],           #6
-    ["Iroh",3,1,1],             #7
-    ["syv",3,1,1],              #8
-    ["Hornager",3,1,1],         #9
-    ["Riku",3,1,1],             #10
-    ["My Toes",3,1,1],          #11
-    ["Magician Kaftan",3,1,1],  #12
-    ["Mystical",3,1,1],         #13
-    ["DaveahamLincoln",1,1,1]   #14
+    #Will eventually dump LEADER_ID in favor of logic through PLAYER_LEADER_REFS
+    #So that players can have multiple leaders.
+    #
+    #Eventually SQUAD will get dropped and be accessed through
+    #PLAYER.CHARACTERS -> CHARACTER_ID -> CHARACTER_SQUAD_REF_ID
+    #
+    #[ID, "NAME", RANK, RXP, SQUAD, PLAYER_LEADER_REF_ID IS_LEADER]
+    [1,"Obsidian_Blade",3,1,1,1,false],   #1
+    [2,"DeathWish",3,1,1,2,false],        #2
+    [3,"Upas",3,1,1,3,false],             #3
+    [4,"MollyElizbeth",3,1,1,4,false],    #4
+    [5,"MeriKasam",3,1,1,5,false],        #5
+    [6,"Enegek",3,1,1,6,false],           #6
+    [7,"Iroh",3,1,1,7,false],             #7
+    [8,"syv",3,1,1,8,false],              #8
+    [9,"Hornager",3,1,1,9,false],         #9
+    [10,"Riku",3,1,1,10,false],             #10
+    [11,"My Toes",3,1,1,11,false],          #11
+    [12,"Magician_Kaftan",3,1,1,12,false],  #12
+    [13,"Mystical",3,1,1,13,false],         #13
+    [14,"DaveahamLincoln",1,1,1,14,true]    #14
     ]
     
 players_array.each do |pl|
-    player = Player.find_or_initialize_by(name: pl)
-    player.name = pl[0]
-    player.rank = pl[1]
-    player.rxp = pl[2]
-    player.squad_id = pl[3]
-    #
+    player = Player.find_or_initialize_by(id: pl[0])
+    player.name = pl[1]
+    player.rank = pl[2]
+    player.rxp = pl[3]
+    player.squad_id = pl[4]                 #deprecated
+    player.player_leader_ref_id = pl[5]
+    player.is_leader = pl[6]
+    email = pl[1] + "@gmail.com"
+    player.email = email
+    player.password = 'password'
+    player.password_confirmation = 'password'
     player.save!
+end
+
+#================================================
+#Preseed Leaders
+#================================================
+
+leaders_array = [
+    #[ID, "NAME"]
+    [14,"DaveahamLincoln"],   #1
+    ]
+    
+leaders_array.each do |l|
+    leader = Leader.find_or_initialize_by(id: l[0])
+    leader.email = "#{l[1].to_s}@test.com"
+    leader.password = "password"
+    leader.password_confirmation = "password"
+    leader.save!
+end
+
+#================================================
+#Preseed Player Leader Refs
+#================================================
+
+p_leader_ref_array = [
+    #[ID, PLAYER_ID, LEADER_ID]
+    [1,1,14],     #1
+    [2,2,14],     #2
+    [3,3,14],     #3
+    [4,4,14],     #4
+    [5,5,14],     #5
+    [6,6,14],     #6
+    [7,7,14],     #7
+    [8,8,14],     #8
+    [9,9,14],     #9
+    [10,10,14],   #10
+    [11,11,14],   #11
+    [12,12,14],   #12
+    [13,13,14],   #13
+    [14,14,14]    #14
+    ]
+    
+p_leader_ref_array.each do |plr|
+    p_leader_ref = PlayerLeaderRef.find_or_initialize_by(id: plr[0])
+    p_leader_ref.player_id = plr[1]
+    p_leader_ref.leader_id = plr[2]
+    p_leader_ref.save!
 end
 
 #================================================
@@ -199,27 +261,35 @@ end
 
 characters_array = [
     
-    #["NAME", ROLE, CLASS, PREFIX, AFFIX, SIGILS 1-4, TOUGHNESS, AC, PLAYER ID, SQUAD ID]
-    ["Dr Molly",3,1,5,5,4,1,1,1,1191,2309,4,1],               #1
-    ["Admiral Von Nelson",4,9,7,8,9,10,1,1,1356,2567,14,1],   #2
-    ["Keldey",5,11,2,2,3,12,1,1,2174,3094,9,1,1],             #3
-    ["Luna of Kilvaraugh",2,16,4,4,12,11,1,1,1280,2200,12,1]  #4
+    #Will eventually need to create and change SQUAD_ID to CHARACTER_SQUAD_REF_ID
+    #so that players can join multiple squads
+    #
+    #Eventually LEADER_ID will get pulled from this, and scoping will get handled
+    #through PLAYER_ID -> PLAYER -> PLAYER_LEADER_REF_ID -> LEADER ID
+    #
+    #["ID",NAME", ROLE, CLASS, PREFIX, AFFIX, SIGILS 1-4, TOUGHNESS, AC, PLAYER ID, SQUAD ID, LEADER_ID]
+    [1,"Dr Molly",3,1,5,5,4,1,1,1,1191,2309,4,1,1],               #1
+    [2,"Admiral Von Nelson",4,9,7,8,9,10,1,1,1356,2567,14,1,1],   #2
+    [3,"Keldey",5,11,2,2,3,12,1,1,2174,3094,9,1,1,1],             #3
+    [4,"Luna of Kilvaraugh",2,16,4,4,12,11,1,1,1280,2200,12,1,1]  #4
     ]
     
 characters_array.each do |c|
-    character = Character.find_or_initialize_by(name: c[0])
-    character.name = c[0]
-    character.role = c[1]
-    character.cclass = c[2]
-    character.prefix = c[3]
-    character.affix = c[4]
-    character.sigil_1 = c[5]
-    character.sigil_2 = c[6]
-    character.sigil_3 = c[7]
-    character.sigil_4 = c[8]
-    character.toughness = c[9]
-    character.ac = c[10]
-    character.player_id = c[11]
+    character = Character.find_or_initialize_by(id: c[0])
+    character.name = c[1]
+    character.role = c[2]
+    character.cclass = c[3]
+    character.prefix = c[4]
+    character.affix = c[5]
+    character.sigil_1 = c[6]
+    character.sigil_2 = c[7]
+    character.sigil_3 = c[8]
+    character.sigil_4 = c[9]
+    character.toughness = c[10]
+    character.ac = c[11]
+    character.player_id = c[12]
+    character.squad_id = c[13]
+    character.leader_id = c[14]
     #
     character.save!
 end
@@ -230,14 +300,15 @@ end
 
 encounters_array = [
     
-    #["NAME", "DESCRIPTION"]
-    ["Vale Guardian", "The big bad dude we all want to kill for loot."]     #1
+    #[ID, "NAME", "DESCRIPTION", LEADER_ID]
+    [1, "Vale Guardian", "The big bad dude we all want to kill for loot.",1]     #1
     ]
     
 encounters_array.each do |e|
-    encounter = Encounter.find_or_initialize_by(name: e[0])
-    encounter.name = e[0]
-    encounter.description = e[1]
+    encounter = Encounter.find_or_initialize_by(id: e[0])
+    encounter.name = e[1]
+    encounter.description = e[2]
+    encounter.leader_id = e[3]
     encounter.save!
 end
 
@@ -247,12 +318,12 @@ end
 
 pulls_array = [
     
-    #[ID, "NAME", "DESCRIPTION", ENCOUNTER]
-    [1,"Phase 1", "One dude",1],          #1
-    [2,"Phase 2", "Three dudes",1],       #2
-    [3,"Phase 3", "One badder dude",1],   #3
-    [4,"Phase 4", "???",1],               #4
-    [5,"Phase 5", "???",1]                #5
+    #[ID, "NAME", "DESCRIPTION", ENCOUNTER, LEADER_ID]
+    [1,"Phase 1", "One dude",1,1],          #1
+    [2,"Phase 2", "Three dudes",1,1],       #2
+    [3,"Phase 3", "One badder dude",1,1],   #3
+    [4,"Phase 4", "???",1,1],               #4
+    [5,"Phase 5", "???",1,1]                #5
     ]
     
 pulls_array.each do |pu|
@@ -260,6 +331,7 @@ pulls_array.each do |pu|
     pull.name = pu[1]
     pull.description = pu[2]
     pull.encounter_id = pu[3]
+    pull.leader_id = pu[4]
     pull.save!
 end
 
@@ -269,13 +341,13 @@ end
 
 pull_roles_array = [
     
-    #[ID, "NAME", "DESCRIPTION", PULL, ENCOUNTER]
-    [1,"Melee DPS", "Stay on boss",1,1],                            #1
-    [2,"Green Circles", "Get into the green circles",1,1],          #2
-    [3,"Condition DPS", "Handle Condi damage and support",1,1],     #3
-    [4,"Red", "Take Down Red Boss",2,1],                            #4
-    [5,"Green", "Take Down Green Boss",2,1],                        #5
-    [6,"Blue", "Take Down Blue Boss",2,1],                          #6
+    #[ID, "NAME", "DESCRIPTION", PULL, ENCOUNTER, LEADER_ID]
+    [1,"Melee DPS", "Stay on boss",1,1,1],                            #1
+    [2,"Green Circles", "Get into the green circles",1,1,1],          #2
+    [3,"Condition DPS", "Handle Condi damage and support",1,1,1],     #3
+    [4,"Red", "Take Down Red Boss",2,1,1],                            #4
+    [5,"Green", "Take Down Green Boss",2,1,1],                        #5
+    [6,"Blue", "Take Down Blue Boss",2,1,1],                          #6
     ]
     
 pull_roles_array.each do |pu|
@@ -284,6 +356,7 @@ pull_roles_array.each do |pu|
     pull_role.description = pu[2]
     pull_role.pull_id = pu[3]
     pull_role.encounter_id = pu[4]
+    pull_role.leader_id = pu[5]
     pull_role.save!
 end
 
@@ -293,21 +366,22 @@ end
 
 character_pull_role_ref_array = [
     
-    #[ID, PULL_ROLE_ID, CHARACTER_ID]
-    [1,3,1],    #1
-    [2,4,1],    #2
-    [3,2,2],    #3
-    [4,6,2],    #4
-    [5,1,3],    #5
-    [6,6,3],    #6
-    [7,2,4],    #7
-    [8,5,4]
+    #[ID, PULL_ROLE_ID, CHARACTER_ID, LEADER_ID]
+    [1,3,1,1],    #1
+    [2,4,1,1],    #2
+    [3,2,2,1],    #3
+    [4,6,2,1],    #4
+    [5,1,3,1],    #5
+    [6,6,3,1],    #6
+    [7,2,4,1],    #7
+    [8,5,4,1]     #8
     ]
     
 character_pull_role_ref_array.each do |c|
     c_pull_role_ref = CharacterPullRoleRef.find_or_initialize_by(id: c[0])
     c_pull_role_ref.pull_role_id = c[1]
     c_pull_role_ref.character_id = c[2]
+    c_pull_role_ref.leader_id = c[3]
     c_pull_role_ref.save!
 end
 
@@ -317,16 +391,17 @@ end
 
 encounter_character_ref_array = [
     
-    #[ID, ENCOUNTER_ID, CHARACTER_ID]
-    [1,1,1],  #1
-    [2,1,2],  #2
-    [3,1,3],  #3
-    [4,1,4]   #4
+    #[ID, ENCOUNTER_ID, CHARACTER_ID, LEADER_ID]
+    [1,1,1,1],  #1
+    [2,1,2,1],  #2
+    [3,1,3,1],  #3
+    [4,1,4,1]   #4
     ]
     
 encounter_character_ref_array.each do |e|
     e_character_ref = EncounterCharacterRef.find_or_initialize_by(id: e[0])
     e_character_ref.pull_role_id = e[1]
     e_character_ref.character_id = e[2]
+    e_character_ref.leader_id = e[3]
     e_character_ref.save!
 end

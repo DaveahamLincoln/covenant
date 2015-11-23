@@ -1,24 +1,80 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @player.name %>
-</p>
+<div class="panel">
 
-<p>
-  <strong>Rank:</strong>
-  <%= Rank.find(@player.rank).name %>
-</p>
+<h1>Player Information</h1>
 
-<p>
-  <strong>RXP:</strong>
-  <%= @player.rxp %>
-</p>
+<table border = "1">
+  <thead>
+    <th>Name:</th>
+    <th>Rank:</th>
+    <th>RXP</th>
+    <th>Current Squad</th>
+  </thead>
+  
+  <tbody>
+    <td><%= @player.name %></td>
+    <td><%= Rank.find(@player.rank).name %></td>
+    <td><%= @player.rxp %></td>
+    <td><%= Squad.find(@player.squad_id).name %></td>
+  </tbody>
+</table>
 
-<p>
-  <strong>Squad:</strong>
-  <%= Squad.find(@player.squad).name %>
-</p>
+</div>
 
-<%= link_to 'Edit', edit_player_path(@player) %> |
+<div class=panel>
+
+<h1>Player Characters</h1>
+
+<table border="1" width="90%">
+  <thead>
+    <tr>
+      <th>Player</th>
+      <th>Character Name</th>
+      <th>Role</th>
+      <th>Class</th>
+      <th>Prefix</th>
+      <th>Affix</th>
+      <th>Sigil 1</th>
+      <th>Sigil 2</th>
+      <th>Sigil 3</th>
+      <th>Sigil 4</th>
+      <th>Toughness</th>
+      <th>Armor Class</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @player_characters.each do |character| %>
+      <tr>
+        <td><%= Player.find(character.player_id).name %></td>
+        <td><%= character.name %></td>
+        <td><%= Role.find(character.role).name %></td>
+        <td><%= Cclass.find(character.cclass).name %></td>
+        <td><%= Prefix.find(character.prefix).name %></td>
+        <td><%= Affix.find(character.affix).name %></td>
+        <td><%= Sigil.find(character.sigil_1).name %></td>
+        <td><%= Sigil.find(character.sigil_2).name %></td>
+        <td><%= Sigil.find(character.sigil_3).name %></td>
+        <td><%= Sigil.find(character.sigil_4).name %></td>
+        <td><%= character.toughness %></td>
+        <td><%= character.ac %></td>
+        <td><%= link_to 'Show', character %></td>
+        <td><%= link_to 'Edit', edit_character_path(character) %></td>
+        <td><%= link_to 'Destroy', character, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
+
+<div class=panel>
+
+<%if @player.id == current_player.id %>
+  <%= link_to 'Edit', edit_player_path(@player) %> |
+<%end%>
+
 <%= link_to 'Back', players_path %>
+
+</div>

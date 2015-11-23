@@ -1,5 +1,34 @@
 <p id="notice"><%= notice %></p>
 
+<div class="panel">
+
+<h1>Self</h1>
+
+<table border= "1">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Rank</th>
+      <th>RXP</th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td><%= current_player.name %></td>
+        <td><%= Rank.find(current_player.rank).name %></td>
+        <td><%= current_player.rxp %></td>
+        <td><%= link_to 'Show', current_player %></td>
+        <td><%= link_to 'Edit', edit_player_path(current_player) %></td>
+        <td><%= link_to 'Destroy', current_player, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  </tbody>
+</table>
+
+</div>
+
+<div class="panel">
+
 <h1>Listing Players</h1>
 
 <table border= "1">
@@ -7,26 +36,24 @@
     <tr>
       <th>Name</th>
       <th>Rank</th>
-      <th>Rxp</th>
-      <th>Squad</th>
+      <th>RXP</th>
     </tr>
   </thead>
 
   <tbody>
     <% @players.each do |player| %>
-      <tr>
-        <td><%= player.name %></td>
-        <td><%= Rank.find(player.rank).name %></td>
-        <td><%= player.rxp %></td>
-        <td><%= Squad.find(player.squad).name %></td>
-        <td><%= link_to 'Show', player %></td>
-        <td><%= link_to 'Edit', edit_player_path(player) %></td>
-        <td><%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <%unless player.id == current_player.id %>
+        <tr>
+          <td><%= player.name %></td>
+          <td><%= Rank.find(player.rank).name %></td>
+          <td><%= player.rxp %></td>
+          <td><%= link_to 'Show', player %></td>
+        </tr>
+      <%end%>
     <% end %>
   </tbody>
 </table>
 
-<br>
+</div>
 
 <%= link_to 'New Player', new_player_path %>

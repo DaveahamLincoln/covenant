@@ -15,21 +15,26 @@
   <body>
 
 <div class="top-bar">
-  
-  <%= link_to "Affixes", affixes_path %> 
-  <%= link_to "Classes", cclasses_path %> 
-  <%= link_to "CPRRS", character_pull_role_refs_path %> 
-  <%= link_to "Characters", characters_path %>
-  <%= link_to "ECRS", encounter_character_refs_path %> 
-  <%= link_to "Encounters", encounters_path %>
-  <%= link_to "Players", players_path %>
-  <%= link_to "Prefixes", prefixes_path %>
-  <%= link_to "Pull Roles", pull_roles_path %>
-  <%= link_to "Pulls", pulls_path %>
-  <%= link_to "Ranks", ranks_path %>
-  <%= link_to "Roles", roles_path %>
-  <%= link_to "Sigils", sigils_path %>
-  <%= link_to "Squads", squads_path %>
+
+    <%= link_to "Affixes", affixes_path %> 
+    <%= link_to "Classes", cclasses_path %> 
+    <%= link_to "CPRRS", character_pull_role_refs_path %> 
+    <%= link_to "Characters", characters_path %>
+    <%= link_to "ECRS", encounter_character_refs_path %> 
+    <%= link_to "Encounters", encounters_path %>
+    <%= link_to "Players", players_path %>
+    <%= link_to "Prefixes", prefixes_path %>
+    <%= link_to "Pull Roles", pull_roles_path %>
+    <%= link_to "Pulls", pulls_path %>
+    <%= link_to "Ranks", ranks_path %>
+    <%= link_to "Roles", roles_path %>
+    <%= link_to "Sigils", sigils_path %>
+    <%= link_to "Squads", squads_path %>
+    <% if player_signed_in? %>
+      <%= link_to('Logout', destroy_player_session_path, :method => :delete) %>
+    <% else %>
+      <%= link_to('Login', new_player_session_path)  %>
+    <% end %>
 
 </div>
 

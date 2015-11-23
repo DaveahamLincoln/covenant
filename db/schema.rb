@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151121165725) do
+ActiveRecord::Schema.define(version: 20151122222812) do
 
   create_table "affixes", force: :cascade do |t|
     t.string   "name"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20151121165725) do
     t.integer  "character_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "leader_id"
   end
 
   create_table "characters", force: :cascade do |t|
@@ -50,6 +51,7 @@ ActiveRecord::Schema.define(version: 20151121165725) do
     t.datetime "updated_at", null: false
     t.integer  "player_id"
     t.integer  "squad_id"
+    t.integer  "leader_id"
   end
 
   create_table "encounter_character_refs", force: :cascade do |t|
@@ -58,6 +60,7 @@ ActiveRecord::Schema.define(version: 20151121165725) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "pull_role_id"
+    t.integer  "leader_id"
   end
 
   create_table "encounters", force: :cascade do |t|
@@ -65,16 +68,75 @@ ActiveRecord::Schema.define(version: 20151121165725) do
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "leader_id"
+  end
+
+  create_table "installs", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "installs", ["email"], name: "index_installs_on_email", unique: true
+  add_index "installs", ["reset_password_token"], name: "index_installs_on_reset_password_token", unique: true
+
+  create_table "leaders", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "leaders", ["email"], name: "index_leaders_on_email", unique: true
+  add_index "leaders", ["reset_password_token"], name: "index_leaders_on_reset_password_token", unique: true
+
+  create_table "player_leader_refs", force: :cascade do |t|
+    t.integer  "player_id"
+    t.integer  "leader_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "players", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
     t.string   "name"
     t.integer  "rank"
     t.integer  "rxp"
     t.integer  "squad_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "is_leader"
+    t.integer  "player_leader_ref_id"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
+
+  add_index "players", ["email"], name: "index_players_on_email", unique: true
+  add_index "players", ["reset_password_token"], name: "index_players_on_reset_password_token", unique: true
 
   create_table "prefixes", force: :cascade do |t|
     t.string   "name"
@@ -90,6 +152,7 @@ ActiveRecord::Schema.define(version: 20151121165725) do
     t.datetime "updated_at",   null: false
     t.integer  "pull_id"
     t.integer  "encounter_id"
+    t.integer  "leader_id"
   end
 
   create_table "pulls", force: :cascade do |t|
@@ -100,6 +163,7 @@ ActiveRecord::Schema.define(version: 20151121165725) do
     t.string   "name"
     t.string   "description"
     t.integer  "encounter_id"
+    t.integer  "leader_id"
   end
 
   create_table "ranks", force: :cascade do |t|
@@ -107,6 +171,7 @@ ActiveRecord::Schema.define(version: 20151121165725) do
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "leader_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -114,6 +179,7 @@ ActiveRecord::Schema.define(version: 20151121165725) do
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "leader_id"
   end
 
   create_table "sigils", force: :cascade do |t|
@@ -127,6 +193,7 @@ ActiveRecord::Schema.define(version: 20151121165725) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "leader_id"
   end
 
 end

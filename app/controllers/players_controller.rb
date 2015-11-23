@@ -1,5 +1,7 @@
 class PlayersController < ApplicationController
+  before_action :authenticate_player!
   before_action :set_player, only: [:show, :edit, :update, :destroy]
+  before_action :set_player_characters, only: :show
 
   # GET /players
   # GET /players.json
@@ -65,6 +67,10 @@ class PlayersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_player
       @player = Player.find(params[:id])
+    end
+    
+    def set_player_characters
+      @player_characters = Character.where(:player_id == current_player.id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
