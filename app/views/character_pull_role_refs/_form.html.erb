@@ -10,13 +10,11 @@
         </ul>
       </div>
     <% end %>
-    
-  <p>
-  <strong>Encounter:</strong>
-  <%= Encounter.find(PullRole.find(@character_pull_role_ref.pull_role_id).encounter_id).name %>
-  </p>
   
+  <h3>Again, this will eventually populate with just characters from your selected squad.  For now you have to go through all characters.</h3>
   <%= f.input :character_id,:collection => Character.all,:label_method => :name,:value_method => :id,:label => "Character Name" ,:include_blank => true %>
+  <h3>This should also be changed to only pull from PullRoles which the Leader created.</h3>
   <%= f.input :pull_role_id,:collection => PullRole.all,:label_method => :name,:value_method => :id,:label => "Pull Role" ,:include_blank => true %>
+  <%= f.input :leader_id, :as => :hidden, :input_html => { :value => current_player.id }%>
   <%= f.button :submit %>
 <% end %>

@@ -178,19 +178,19 @@ players_array = [
     #PLAYER.CHARACTERS -> CHARACTER_ID -> CHARACTER_SQUAD_REF_ID
     #
     #[ID, "NAME", RANK, RXP, SQUAD, PLAYER_LEADER_REF_ID IS_LEADER]
-    [1,"Obsidian_Blade",3,1,1,1,false],   #1
-    [2,"DeathWish",3,1,1,2,false],        #2
-    [3,"Upas",3,1,1,3,false],             #3
+    #[1,"Obsidian_Blade",3,1,1,1,false],   #1
+    #[2,"DeathWish",3,1,1,2,false],        #2
+    #[3,"Upas",3,1,1,3,false],             #3
     [4,"MollyElizbeth",3,1,1,4,false],    #4
-    [5,"MeriKasam",3,1,1,5,false],        #5
-    [6,"Enegek",3,1,1,6,false],           #6
-    [7,"Iroh",3,1,1,7,false],             #7
-    [8,"syv",3,1,1,8,false],              #8
+    #[5,"MeriKasam",3,1,5,false],        #5
+    #[6,"Enegek",3,1,6,false],           #6
+    #[7,"Iroh",3,1,7,false],             #7
+    #[8,"syv",3,1,8,false],              #8
     [9,"Hornager",3,1,1,9,false],         #9
-    [10,"Riku",3,1,1,10,false],             #10
-    [11,"My Toes",3,1,1,11,false],          #11
+    #[10,"Riku",3,1,10,false],             #10
+    #[11,"My Toes",3,1,11,false],          #11
     [12,"Magician_Kaftan",3,1,1,12,false],  #12
-    [13,"Mystical",3,1,1,13,false],         #13
+    #[13,"Mystical",3,1,13,false],         #13
     [14,"DaveahamLincoln",1,1,1,14,true]    #14
     ]
     
@@ -221,11 +221,11 @@ characters_array = [
     #Eventually LEADER_ID will get pulled from this, and scoping will get handled
     #through PLAYER_ID -> PLAYER -> PLAYER_LEADER_REF_ID -> LEADER ID
     #
-    #["ID",NAME", ROLE, CLASS, PREFIX, AFFIX, SIGILS 1-4, TOUGHNESS, AC, PLAYER ID, SQUAD ID, LEADER_ID]
-    [1,"Dr Molly",3,1,5,5,4,1,1,1,1191,2309,4,1,1],               #1
-    [2,"Admiral Von Nelson",4,9,7,8,9,10,1,1,1356,2567,14,1,1],   #2
-    [3,"Keldey",5,11,2,2,3,12,1,1,2174,3094,9,1,1,1],             #3
-    [4,"Luna of Kilvaraugh",2,16,4,4,12,11,1,1,1280,2200,12,1,1]  #4
+    #["ID",NAME", ROLE, CLASS, PREFIX, AFFIX, SIGILS 1-4, TOUGHNESS, AC, PLAYER ID]
+    [1,"Dr Molly",3,1,5,5,4,1,1,1,1191,2309,4],               #1
+    [2,"Admiral Von Nelson",4,9,7,8,9,10,1,1,1356,2567,14],   #2
+    [3,"Keldey",5,11,2,2,3,12,1,1,2174,3094,9],             #3
+    [4,"Luna of Kilvaraugh",2,16,4,4,12,11,1,1,1280,2200,12]  #4
     ]
     
 characters_array.each do |c|
@@ -242,9 +242,6 @@ characters_array.each do |c|
     character.toughness = c[10]
     character.ac = c[11]
     character.player_id = c[12]
-    character.squad_id = c[13]
-    character.leader_id = c[14]
-    #
     character.save!
 end
 
@@ -254,8 +251,8 @@ end
 
 encounters_array = [
     
-    #[ID, "NAME", "DESCRIPTION", LEADER_ID]
-    [1, "Vale Guardian", "The big bad dude we all want to kill for loot.",1]     #1
+    #[ID, "NAME", "DESCRIPTION", LEADER_ID, SQUAD_ID]
+    [1, "Vale Guardian", "The big bad dude we all want to kill for loot.",14,1]     #1
     ]
     
 encounters_array.each do |e|
@@ -263,6 +260,7 @@ encounters_array.each do |e|
     encounter.name = e[1]
     encounter.description = e[2]
     encounter.leader_id = e[3]
+    encounter.squad_id = e[4]
     encounter.save!
 end
 

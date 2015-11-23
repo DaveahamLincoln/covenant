@@ -1,25 +1,26 @@
-<%= form_for(@encounter) do |f| %>
-  <% if @encounter.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@encounter.errors.count, "error") %> prohibited this encounter from being saved:</h2>
+<div class="panel">
 
-      <ul>
-      <% @encounter.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= simple_form_for @encounter do |f| %>
+    <% if @encounter.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@encounter.errors.count, "error") %> prohibited this encounter from being saved:</h2>
+  
+        <ul>
+        <% @encounter.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+ 
+  <%= f.input :name %>
+  <%if current_player.is_leader %>
+    <%= f.input :leader_id, :as => :hidden, :input_html => { :value => current_player.id }%>
+  <%end%>
+  <%= f.input :description %>
+  <%= f.input :squad_id,:collection => Squad.where(:id => current_player.squad_id),:label_method => :name,:value_method => :id,:label => "Squad" ,:include_blank => true %>
+  <br/>
+  <%= f.button :submit %>
 <% end %>
+
+</div>

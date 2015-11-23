@@ -21,5 +21,6 @@
   <%= f.input :sigil_4,:collection => Sigil.all,:label_method => :name,:value_method => :id,:label => "Sigil 4" ,:include_blank => true %>
   <%= f.input :toughness %>
   <%= f.input :ac %>
+  <%= f.input :player_id, :as => :hidden, :input_html => { :value => current_player.id }%>
   <%= f.button :submit %>
 <% end %>

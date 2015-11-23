@@ -6,7 +6,7 @@ class EncounterCharacterRefsController < ApplicationController
   # GET /encounter_character_refs.json
   def index
     @encounter_character_refs = EncounterCharacterRef.all
-    @squad_characters = Character.where(:squad_id => current_player.squad_id)
+    @squad_players = Player.where(:squad_id => current_player.squad_id)
   end
 
   # GET /encounter_character_refs/1

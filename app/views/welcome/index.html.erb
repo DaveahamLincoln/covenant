@@ -3,11 +3,29 @@
 <div class="panel">
 
 <%if current_player%>
-    <h1>Logged in as <$= current_player.name%></h1>
+    <h1>Logged in as <%= current_player.name %></h1>
 
     <%if current_player.is_leader%>
         <h3>Leader Mode is Active (Change in Player/Edit).</h3>
-    <%end>
+        <ul>
+            <li>Step 1: Create a Squad</li>
+            <li>Step 2: Create an Encounter</li>
+            <li>Step 4: Have your players switch their character's Squad to your Squad.</li>
+            <li>Step 5: Assign Encounter+Character References (ECRS)</li>
+            <li>Step 6: Create Pulls for the Encounter</li>
+            <li>Step 7: Create Pull Roles for each Pull</li>
+            <li>Step 8: Assign Character+Pull Role References (CPRRS)</li>
+            <li>Step 9: Assign Character+Pull Role References (CPRRS)</li>
+            <li>Step 10: Have your Squad go to the Show page for your Encounter.</li>
+        </ul>
+    <%else%>
+        <h3>Player Mode is Active (Change in Player/Edit).</h3>
+            <ul>
+                <li>Step 1: Create a Character</li>
+                <li>Step 2: Assign that Character to the Squad that your Leader tells you to.</li>
+                <li>Step 3: Go to the Show page for your Encounter.</li>
+            </ul>
+    <%end%>
 
 <%else%>
     <h1>Not Logged In.  Please Log In.</h1>

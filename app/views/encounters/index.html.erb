@@ -1,27 +1,63 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Encounters</h1>
+<%if current_player.is_leader%>
 
-<table border = "1">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @encounters.each do |encounter| %>
+  <div class="panel">
+  
+  <h1>Listing Custom Encounters</h1>
+  
+  <table border = "1">
+    <thead>
       <tr>
-        <td><%= encounter.name %></td>
-        <td><%= encounter.description %></td>
-        <td><%= link_to 'Show', encounter %></td>
-        <td><%= link_to 'Edit', edit_encounter_path(encounter) %></td>
-        <td><%= link_to 'Destroy', encounter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Squad</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+  
+    <tbody>
+      <% @custom_encounters.each do |encounter| %>
+        <tr>
+          <td><%= encounter.name %></td>
+          <td><%= encounter.description %></td>
+          <td><%= Squad.find(encounter.squad_id).name %></td>
+          <td><%= link_to 'Show', encounter %></td>
+          <td><%= link_to 'Edit', edit_encounter_path(encounter) %></td>
+          <td><%= link_to 'Destroy', encounter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+  
+<%end%>
+
+ <div class="panel">
+  
+  <h1>Listing Encounters for <%= Squad.find(current_player.squad_id).name %></h1>
+  
+  <table border = "1">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Squad</th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% @squad_encounters.each do |encounter| %>
+        <tr>
+          <td><%= encounter.name %></td>
+          <td><%= encounter.description %></td>
+          <td><%= Squad.find(encounter.squad_id).name %></td>
+          <td><%= link_to 'Show', encounter %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+  
 
 <br>
 

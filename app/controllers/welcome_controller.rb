@@ -1,5 +1,4 @@
 class WelcomeController < ApplicationController
-    before_action :authenticate_player!
 
     def index
     end

@@ -1,3 +1,5 @@
+<div class="panel">
+
 <%= simple_form_for @pull do |f| %>
     <% if @pull.errors.any? %>
       <div id="error_explanation">
@@ -11,7 +13,14 @@
       </div>
     <% end %>
     
+  <h3>Will eventually be only populated with Encounters belonging to your currently selected squad.</h3>
+  <%= f.input :encounter_id,:collection => Encounter.all,:label_method => :name,:value_method => :id,:label => "Encounter" ,:include_blank => true %>
   <%= f.input :name %>
   <%= f.input :description %>
+  <%= f.input :leader_id, :as => :hidden, :input_html => { :value => current_player.id }%>
+  <%= f.input :result %>
+  <%= f.input :comments %>
   <%= f.button :submit %>
 <% end %>
+
+</div>

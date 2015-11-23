@@ -1,3 +1,5 @@
+<div class="panel">
+
 <%= simple_form_for @encounter_character_ref do |f| %>
     <% if @encounter_character_ref.errors.any? %>
       <div id="error_explanation">
@@ -12,6 +14,11 @@
     <% end %>
     
   <%= f.input :encounter_id,:collection => Encounter.all,:label_method => :name,:value_method => :id,:label => "Encounter" ,:include_blank => true %>
-  <%= f.input :character_id,:collection => @squad_characters.all>?.Z,:label_method => :name,:value_method => :id,:label => "Character",:include_blank => true %>
+  <h3>So ideally, in the future, this will only populate with characters owned by players in your squad.  However, I
+  can't figure out how to do that with the current schema/without adding another ref table.  So for now, you'll have to select from
+  all characters that have been entered in the system.  Sorry for the inconvenience."</h3>
+  <%= f.input :character_id,:collection => Character.all,:label_method => :name,:value_method => :id,:label => "Character",:include_blank => true %>
   <%= f.button :submit %>
 <% end %>
+
+</div>

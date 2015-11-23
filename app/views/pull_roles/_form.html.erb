@@ -1,3 +1,31 @@
+<div class="panel">
+
+<%= simple_form_for @pull_role do |f| %>
+    <% if @pull_role.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@pull_role.errors.count, "error") %> prohibited this pull_role from being saved:</h2>
+  
+        <ul>
+        <% @pull_role.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
+  <h3>OK, I don't know enough Javascript to do this thing, but I know what needs to be done:
+  Basically, when you select an Encounter, it should populate the Pull select box with all of the Pulls belonging
+  to that encounter.  For now, you'll have to just do it manually.</h3>
+  <%= f.input :encounter_id,:collection => Encounter.all,:label_method => :name,:value_method => :id,:label => "Encounter" ,:include_blank => true %>
+  <%= f.input :pull_id,:collection => Pull.all,:label_method => :name,:value_method => :id,:label => "Pull" ,:include_blank => true %>
+  <%= f.input :name %>
+  <%= f.input :description %>
+  <%= f.input :leader_id, :as => :hidden, :input_html => { :value => current_player.id }%>
+  <%= f.button :submit %>
+<% end %>
+
+</div>
+
 <%= simple_form_for @pull_role do |f| %>
     <% if @pull_role.errors.any? %>
       <div id="error_explanation">

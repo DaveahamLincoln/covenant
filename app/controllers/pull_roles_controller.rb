@@ -70,6 +70,6 @@ class PullRolesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pull_role_params
-      params.require(:pull_role).permit(:string, :string)
+      params.require(:pull_role).permit(:name, :description, :encounter_id, :pull_id, :leader_id)
     end
 end

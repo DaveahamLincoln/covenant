@@ -4,6 +4,7 @@ class CreateEncounters < ActiveRecord::Migration
       t.string :name
       t.string :description
       t.integer :leader_id
+      t.integer :squad_id
 
       t.timestamps null: false
     end

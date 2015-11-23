@@ -1,10 +1,13 @@
 class EncountersController < ApplicationController
+  before_action :authenticate_player!
   before_action :set_encounter, only: [:show, :edit, :update, :destroy]
+  #before_action :set_squad, only: 
 
   # GET /encounters
   # GET /encounters.json
   def index
-    @encounters = Encounter.all
+    @custom_encounters = Encounter.where(:leader_id => current_player.id)
+    @squad_encounters = Encounter.where(:squad_id => current_player.id)
   end
 
   # GET /encounters/1
@@ -66,13 +69,18 @@ class EncountersController < ApplicationController
     def set_encounter
       @encounter = Encounter.find(params[:id])
       #may not work right
-      @encounter_character_refs = EncounterCharacterRef.where(:encounter_id == params[:id]).order(id: :asc)
-      @encounter_pulls = Pull.where(:encounter_id == params[:id])
-      @encounter_character_pull_roles = CharacterPullRoleRef.where(:encounter_id == params[:id])
+      @encounter_character_refs = EncounterCharacterRef.where(:encounter_id => params[:id]).order(id: :asc)
+      @encounter_pulls = Pull.where(:encounter_id => params[:id])
+      @encounter_character_pull_roles = CharacterPullRoleRef.where(:encounter_id => params[:id])
+    end
+
+    def set_squad
+      @encounter = Encounter.find(params[:id])
+      @squad = Squad.find(:id => @encounter.squad_id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def encounter_params
-      params.require(:encounter).permit(:string, :string)
+      params.require(:encounter).permit(:name, :description, :squad_id, :leader_id)
     end
 end

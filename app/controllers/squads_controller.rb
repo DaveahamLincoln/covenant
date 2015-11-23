@@ -66,11 +66,11 @@ class SquadsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_squad
       @squad = Squad.find(params[:id])
-      @characters = Character.where(:squad_id == @squad.id)
+      @players = Player.where(:squad_id => @squad.id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def squad_params
-      params.require(:squad).permit(:string)
+      params.require(:squad).permit(:name, :leader_id)
     end
 end

@@ -39,9 +39,11 @@
         <td><%= Role.find(Character.find(ecr.character_id).role).name %></td>
         <td><%= Character.find(ecr.character_id).toughness %></td>
         <td><%= Character.find(ecr.character_id).ac %></td>
-        <td><%= link_to 'Show', character_path(ecr.character_id) %></td>
-        <td><%= link_to 'Edit', edit_character_path(ecr.character_id) %></td>
-        <td><%= link_to 'Destroy', character_path(ecr.character_id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%if Character.find(ecr.character_id).player_id == current_player.id %>
+          <td><%= link_to 'Show', character_path(ecr.character_id) %></td>
+          <td><%= link_to 'Edit', edit_character_path(ecr.character_id) %></td>
+          <td><%= link_to 'Destroy', character_path(ecr.character_id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
       </tr>
     <% end %>
   </tbody>
@@ -104,9 +106,11 @@
     <td><%= pu.name %></td>
     <td><%= pu.description%></td>
     <td><%= pu.result%></td>
-    <td><%= link_to 'Show', pull_path(pu) %></td>
-    <td><%= link_to 'Edit', edit_pull_path(pu) %></td>
-    <td><%= link_to 'Destroy', pull_path(pu), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <%if current_player.is_leader %>
+      <td><%= link_to 'Show', pull_path(pu) %></td>
+      <td><%= link_to 'Edit', edit_pull_path(pu) %></td>
+      <td><%= link_to 'Destroy', pull_path(pu), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <%end%>
   </tr>
   <tbody>
 <% end %>
@@ -134,9 +138,11 @@
       <td><%= pu.id %></td>
       <td><%= pr.name %></td>
       <td><%= pr.description %></td>
-      <td><%= link_to 'Show', pull_role_path(pr) %></td>
-      <td><%= link_to 'Edit', edit_pull_role_path(pr) %></td>
-      <td><%= link_to 'Destroy', pull_role_path(pr), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <%if current_player.is_leader %>
+        <td><%= link_to 'Show', pull_role_path(pr) %></td>
+        <td><%= link_to 'Edit', edit_pull_role_path(pr) %></td>
+        <td><%= link_to 'Destroy', pull_role_path(pr), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <%end%>
     </tr>
   <%end%>
   </table>
@@ -176,9 +182,11 @@
           <td><%= Role.find(c.role).name %></td>
           <td><%= c.toughness %></td>
           <td><%= c.ac %></td>
-          <td><%= link_to 'Show', character_pull_role_ref_path(pr) %></td>
-          <td><%= link_to 'Edit', edit_character_pull_role_ref_path(pr) %></td>
-          <td><%= link_to 'Destroy', character_pull_role_ref_path(pr), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%if current_player.is_leader %>
+            <td><%= link_to 'Show', character_pull_role_ref_path(pr) %></td>
+            <td><%= link_to 'Edit', edit_character_pull_role_ref_path(pr) %></td>
+            <td><%= link_to 'Destroy', character_pull_role_ref_path(pr), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%end%>
         </tr>
     <%end%>
     </table>

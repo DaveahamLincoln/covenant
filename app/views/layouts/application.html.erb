@@ -19,7 +19,6 @@
 <%if current_player %>
   <%if current_player.is_leader? %>
       <%= link_to "Squads", squads_path %> |
-      <%= link_to "Encounters", encounters_path %> |
       <%= link_to "ECRS", encounter_character_refs_path %> |
       <%= link_to "Pulls", pulls_path %> |
       <%= link_to "Pull Roles", pull_roles_path %> |
@@ -34,6 +33,7 @@
 <%end%>
     <%= link_to "Players", players_path %>
     <%= link_to "Characters", characters_path %> |
+    <%= link_to "Encounters", encounters_path %> |
     <% if player_signed_in? %>
       <%= link_to('Logout', destroy_player_session_path, :method => :delete) %>
     <% else %>
