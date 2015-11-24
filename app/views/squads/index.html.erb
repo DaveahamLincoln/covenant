@@ -15,9 +15,11 @@
       <tr>
         <td><%= squad.name %></td>
         <%if current_player.is_leader %>
-          <td><%= link_to 'Show', squad %></td>
-          <td><%= link_to 'Edit', edit_squad_path(squad) %></td>
-          <td><%= link_to 'Destroy', squad, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%if current_player.id == squad.leader_id%>
+            <td><%= link_to 'Show', squad %></td>
+            <td><%= link_to 'Edit', edit_squad_path(squad) %></td>
+            <td><%= link_to 'Destroy', squad, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%end%>
         <%end%>
       </tr>
     <% end %>

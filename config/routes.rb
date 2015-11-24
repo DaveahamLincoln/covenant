@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :player_leader_refs
-  devise_for :players
+  devise_for :players, :controllers => { registrations: 'registrations' }
   resources :encounter_character_refs
   resources :character_pull_role_refs
   resources :ranks

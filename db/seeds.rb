@@ -150,12 +150,12 @@ ranks_array.each do |r|
 end
 
 #================================================
-#Preseed Example Squad
+#Preseed Default Squad
 #================================================
 
 squads_array = [
     #[ID, NAME, LEADER_ID]
-    [1,"The Raiders Of The Lost Ark",1]   #1
+    [1,"DEFAULT",1]   #1
     ]
 
 squads_array.each do |s|
@@ -167,31 +167,12 @@ squads_array.each do |s|
 end
 
 #================================================
-#Preseed Players
+#Preseed Default Player
 #================================================
 
 players_array = [
-    #Will eventually dump LEADER_ID in favor of logic through PLAYER_LEADER_REFS
-    #So that players can have multiple leaders.
-    #
-    #Eventually SQUAD will get dropped and be accessed through
-    #PLAYER.CHARACTERS -> CHARACTER_ID -> CHARACTER_SQUAD_REF_ID
-    #
     #[ID, "NAME", RANK, RXP, SQUAD, PLAYER_LEADER_REF_ID IS_LEADER]
-    #[1,"Obsidian_Blade",3,1,1,1,false],   #1
-    #[2,"DeathWish",3,1,1,2,false],        #2
-    #[3,"Upas",3,1,1,3,false],             #3
-    [4,"MollyElizbeth",3,1,1,4,false],    #4
-    #[5,"MeriKasam",3,1,5,false],        #5
-    #[6,"Enegek",3,1,6,false],           #6
-    #[7,"Iroh",3,1,7,false],             #7
-    #[8,"syv",3,1,8,false],              #8
-    [9,"Hornager",3,1,1,9,false],         #9
-    #[10,"Riku",3,1,10,false],             #10
-    #[11,"My Toes",3,1,11,false],          #11
-    [12,"Magician_Kaftan",3,1,1,12,false],  #12
-    #[13,"Mystical",3,1,13,false],         #13
-    [14,"DaveahamLincoln",1,1,1,14,true]    #14
+    [1,"DEFAULT_PLAYER",1,1,1,1,true],   #1
     ]
     
 players_array.each do |pl|
@@ -209,151 +190,3 @@ players_array.each do |pl|
     player.save!
 end
 
-#================================================
-#Preseed Characters
-#================================================
-
-characters_array = [
-    
-    #Will eventually need to create and change SQUAD_ID to CHARACTER_SQUAD_REF_ID
-    #so that players can join multiple squads
-    #
-    #Eventually LEADER_ID will get pulled from this, and scoping will get handled
-    #through PLAYER_ID -> PLAYER -> PLAYER_LEADER_REF_ID -> LEADER ID
-    #
-    #["ID",NAME", ROLE, CLASS, PREFIX, AFFIX, SIGILS 1-4, TOUGHNESS, AC, PLAYER ID]
-    [1,"Dr Molly",3,1,5,5,4,1,1,1,1191,2309,4],               #1
-    [2,"Admiral Von Nelson",4,9,7,8,9,10,1,1,1356,2567,14],   #2
-    [3,"Keldey",5,11,2,2,3,12,1,1,2174,3094,9],             #3
-    [4,"Luna of Kilvaraugh",2,16,4,4,12,11,1,1,1280,2200,12]  #4
-    ]
-    
-characters_array.each do |c|
-    character = Character.find_or_initialize_by(id: c[0])
-    character.name = c[1]
-    character.role = c[2]
-    character.cclass = c[3]
-    character.prefix = c[4]
-    character.affix = c[5]
-    character.sigil_1 = c[6]
-    character.sigil_2 = c[7]
-    character.sigil_3 = c[8]
-    character.sigil_4 = c[9]
-    character.toughness = c[10]
-    character.ac = c[11]
-    character.player_id = c[12]
-    character.save!
-end
-
-#================================================
-#Preseed Encounters
-#================================================
-
-encounters_array = [
-    
-    #[ID, "NAME", "DESCRIPTION", LEADER_ID, SQUAD_ID]
-    [1, "Vale Guardian", "The big bad dude we all want to kill for loot.",14,1]     #1
-    ]
-    
-encounters_array.each do |e|
-    encounter = Encounter.find_or_initialize_by(id: e[0])
-    encounter.name = e[1]
-    encounter.description = e[2]
-    encounter.leader_id = e[3]
-    encounter.squad_id = e[4]
-    encounter.save!
-end
-
-#================================================
-#Preseed Pulls
-#================================================
-
-pulls_array = [
-    
-    #[ID, "NAME", "DESCRIPTION", ENCOUNTER, LEADER_ID]
-    [1,"Phase 1", "One dude",1,1],          #1
-    [2,"Phase 2", "Three dudes",1,1],       #2
-    [3,"Phase 3", "One badder dude",1,1],   #3
-    [4,"Phase 4", "???",1,1],               #4
-    [5,"Phase 5", "???",1,1]                #5
-    ]
-    
-pulls_array.each do |pu|
-    pull = Pull.find_or_initialize_by(id: pu[0])
-    pull.name = pu[1]
-    pull.description = pu[2]
-    pull.encounter_id = pu[3]
-    pull.leader_id = pu[4]
-    pull.save!
-end
-
-#================================================
-#Preseed Pull Roles
-#================================================
-
-pull_roles_array = [
-    
-    #[ID, "NAME", "DESCRIPTION", PULL, ENCOUNTER, LEADER_ID]
-    [1,"Melee DPS", "Stay on boss",1,1,1],                            #1
-    [2,"Green Circles", "Get into the green circles",1,1,1],          #2
-    [3,"Condition DPS", "Handle Condi damage and support",1,1,1],     #3
-    [4,"Red", "Take Down Red Boss",2,1,1],                            #4
-    [5,"Green", "Take Down Green Boss",2,1,1],                        #5
-    [6,"Blue", "Take Down Blue Boss",2,1,1],                          #6
-    ]
-    
-pull_roles_array.each do |pu|
-    pull_role = PullRole.find_or_initialize_by(id: pu[0])
-    pull_role.name = pu[1]
-    pull_role.description = pu[2]
-    pull_role.pull_id = pu[3]
-    pull_role.encounter_id = pu[4]
-    pull_role.leader_id = pu[5]
-    pull_role.save!
-end
-
-#================================================
-#Preseed Character Pull Role References
-#================================================
-
-character_pull_role_ref_array = [
-    
-    #[ID, PULL_ROLE_ID, CHARACTER_ID, LEADER_ID]
-    [1,3,1,1],    #1
-    [2,4,1,1],    #2
-    [3,2,2,1],    #3
-    [4,6,2,1],    #4
-    [5,1,3,1],    #5
-    [6,6,3,1],    #6
-    [7,2,4,1],    #7
-    [8,5,4,1]     #8
-    ]
-    
-character_pull_role_ref_array.each do |c|
-    c_pull_role_ref = CharacterPullRoleRef.find_or_initialize_by(id: c[0])
-    c_pull_role_ref.pull_role_id = c[1]
-    c_pull_role_ref.character_id = c[2]
-    c_pull_role_ref.leader_id = c[3]
-    c_pull_role_ref.save!
-end
-
-#================================================
-#Preseed Encounter Character References
-#================================================
-
-encounter_character_ref_array = [
-    
-    #[ID, ENCOUNTER_ID, CHARACTER_ID, LEADER_ID]
-    [1,1,1,1],  #1
-    [2,1,2,1],  #2
-    [3,1,3,1],  #3
-    [4,1,4,1]   #4
-    ]
-    
-encounter_character_ref_array.each do |e|
-    e_character_ref = EncounterCharacterRef.find_or_initialize_by(id: e[0])
-    e_character_ref.encounter_id = e[1]
-    e_character_ref.character_id = e[2]
-    e_character_ref.leader_id = e[3]
-    e_character_ref.save!
-end

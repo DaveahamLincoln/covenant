@@ -1,3 +1,5 @@
+<div class ="panel">
+
 <%= simple_form_for @character do |f| %>
     <% if @character.errors.any? %>
       <div id="error_explanation">
@@ -24,3 +26,5 @@
   <%= f.input :player_id, :as => :hidden, :input_html => { :value => current_player.id }%>
   <%= f.button :submit %>
 <% end %>
+
+</div>

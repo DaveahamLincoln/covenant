@@ -1,0 +1,35 @@
+<div class="panel">
+
+<%= simple_form_for @player do |f| %>
+    <% if @player.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@player.errors.count, "error") %> prohibited this player from being saved:</h2>
+  
+        <ul>
+        <% @player.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+ 
+  <%= f.input :name %>
+  <%= f.input :email %>
+  <%= f.input :rank,:collection => Rank.all,:label_method => :name,:value_method => :id,:label => "Rank" ,:include_blank => true %>
+  <%= f.input :rxp %>
+  <%= f.input :squad_id,:collection => Squad.all,:label_method => :name,:value_method => :id,:label => "Squad" ,:include_blank => true %>
+  <%= f.label "Enable Leader Mode?" %>
+  <%= f.check_box :is_leader, as: :boolean %>
+  <br/>
+  <%= f.button :submit %>
+<% end %>
+
+</div>
+
+<hr size: "10px">
+
+<div class="panel">
+
+<%= link_to "Change your password", edit_player_registration_path %>
+
+</div>

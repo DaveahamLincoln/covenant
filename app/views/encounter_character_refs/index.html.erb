@@ -14,8 +14,8 @@
   <tbody>
     <% @encounter_character_refs.each do |encounter_character_ref| %>
       <tr>
-        <td><%= Encounter.find(PullRole.find(encounter_character_ref.encounter_id)).name %></td>
-        <td><%= Character.find(PullRole.find(encounter_character_ref.character_id)).name %></td>
+        <td><%= Encounter.find(encounter_character_ref.encounter_id).name %></td>
+        <td><%= Character.find(encounter_character_ref.character_id).name %></td>
       <%if current_player %>
         <%if current_player.is_leader? %>
           <td><%= link_to 'Show', encounter_character_ref %></td>

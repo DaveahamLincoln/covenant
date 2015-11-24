@@ -25,21 +25,3 @@
 <% end %>
 
 </div>
-
-<%= simple_form_for @pull_role do |f| %>
-    <% if @pull_role.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@pull_role.errors.count, "error") %> prohibited this pull_role from being saved:</h2>
-  
-        <ul>
-        <% @pull_role.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
-  <%= f.input :encounter_id,:collection => Encounter.all,:label_method => :name,:value_method => :id,:label => "Encounter" ,:include_blank => true %>
-  <%= f.input :name %>
-  <%= f.input :description %>
-  <%= f.button :submit %>
-<% end %>
